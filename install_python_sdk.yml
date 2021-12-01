@@ -1,9 +1,10 @@
 ---
-- name: Install python sdk
- collections:
-    - oracle.oci
-  hosts: localhost
+- hosts: all
+  become: yes
+
   tasks:
-  - name: Installing oci python library using Ansible pip module
-    pip:
-      name: oci
+    - name: install python sdk on Oracle Linux 8
+      ansible.builtin.dnf:
+        name: "python36-oci-sdk"
+        state: latest
+      when: ansible_distribution == 'OracleLinux' and (ansible_facts['distribution_version'] is version('8', '>='))
