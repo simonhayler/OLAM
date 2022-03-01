@@ -1,0 +1,8 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: Initialise aide 
+    command: aide --init
+  - name: Enable Database for aide
+    command: mv /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz   

@@ -1,0 +1,8 @@
+---
+- hosts: all
+  tasks:
+  - name: Remove the oracle user
+    user:
+      name: oracle
+      state: absent
+      remove: yes

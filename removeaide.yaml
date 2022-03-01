@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: Remove aide package 
+    yum:
+      name: aide
+      state: absent
+  - name: Clean up aide filesystem    
+    file:
+      path: /var/lib/aide
+      state: absent

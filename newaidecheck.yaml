@@ -1,0 +1,19 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: Gather aide state
+    block:
+      - name: Run aide check 
+        command: aide --check
+        register: result
+      - name: Report Aide OK
+        debug:
+          msg: AIDE found NO differences between database and filesystem. Looks okay!!
+        when: result.rc == 0
+    rescue:
+      - name: Report Aide Error
+        debug:
+          msg: AIDE found differences between database and filesystem!!
+      - name: Force a failure
+        command: /bin/false
