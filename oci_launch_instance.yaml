@@ -49,50 +49,50 @@
     instance_image: "ocid1.image.oc1.iad.aaaaaaaanxbmz7rm7tkopukbbahtcbcx45v5omusafwhjaenzf7tkcoq56qa"
 
   tasks:
-    -name: Run setup.yaml to configure the OCI environment
-     block:
-       - import_tasks: setup.yaml
-       - set_fact:
-           SSH_AUTHORIZED_KEYS: "{{ lookup('file', './ssh/oci_id_rsa.pub') }}"
-         - name: Launch an instance
-             oci_compute_instance:
-             availability_domain: "{{ instance_ad }}"
-             compartment_id: "{{ instance_compartment }}"
-             name: "my_test_instance"
-             image_id: "{{ instance_image }}"
-             shape: "{{ instance_shape }}"
-             create_vnic_details:
+    - name: Run setup.yaml to configure the OCI environment
+      block:
+        - import_tasks: setup.yaml
+        - set_fact:
+            SSH_AUTHORIZED_KEYS: "{{ lookup('file', './ssh/oci_id_rsa.pub') }}"
+          - name: Launch an instance
+              oci_compute_instance:
+                availability_domain: "{{ instance_ad }}"
+                compartment_id: "{{ instance_compartment }}"
+                name: "my_test_instance"
+                image_id: "{{ instance_image }}"
+                shape: "{{ instance_shape }}"
+              create_vnic_details:
                 assign_public_ip: True
                 hostname_label: "{{ instance_hostname }}"
                 subnet_id: "{{ instance_subnet_id }}"
-           metadata:
-             ssh_authorized_keys: "{{ SSH_AUTHORIZED_KEYS }}"
-           register: result
+            metadata:
+              ssh_authorized_keys: "{{ SSH_AUTHORIZED_KEYS }}"
+            register: result
 
-       - name: Print instance details
-         debug:
-           msg: "Launched a new instance {{ result }}"
-       - set_fact:
-           instance_id: "{{result.instance.id }}"
+          - name: Print instance details
+            debug:
+              msg: "Launched a new instance {{ result }}"
+          - set_fact:
+              instance_id: "{{result.instance.id }}"
            
-       - name: Get the VNIC attachment details of instance
-          oci_compute_vnic_attachment_facts:
-            compartment_id: "{{ instance_compartment }}"
-            instance_id: "{{ instance_id }}"
-         register: result
+          - name: Get the VNIC attachment details of instance
+              oci_compute_vnic_attachment_facts:
+                 compartment_id: "{{ instance_compartment }}"
+                 instance_id: "{{ instance_id }}"
+            register: result
 
-       - name: Get details of the VNIC
-          oci_network_vnic_facts:
-            id: "{{ result.vnic_attachments[0].vnic_id }}"
-         register: result
-       - set_fact:
-           instance_public_ip: "{{result.vnic.public_ip}}"
+          - name: Get details of the VNIC
+              oci_network_vnic_facts:
+                id: "{{ result.vnic_attachments[0].vnic_id }}"
+            register: result
+          - set_fact:
+              instance_public_ip: "{{result.vnic.public_ip}}"
 
-       - name: Print the public ip of the newly launched instance
-         debug:
-           msg: "Public IP of launched instance {{ instance_public_ip }}"
-       - name: Print how to access the instance
-         debug:
-           msg: "SSH into instance {{ instance_public_ip }} using your private key which matches the public one referenced by the playbook"
-     rescue:
-       - import_tasks: teardown.yaml
+          - name: Print the public ip of the newly launched instance
+              debug:
+                msg: "Public IP of launched instance {{ instance_public_ip }}"
+          - name: Print how to access the instance
+              debug:
+                msg: "SSH into instance {{ instance_public_ip }} using your private key which matches the public one referenced by the playbook"
+      rescue:
+        - import_tasks: teardown.yaml
