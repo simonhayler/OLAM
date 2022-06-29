@@ -39,7 +39,7 @@
         block:
           - import_tasks: setup.yaml
           - set_fact:
-              SSH_AUTHORIZED_KEYS: "{{ lookup('file', './ssh/oci_id_rsa.pub') }}"
+            SSH_AUTHORIZED_KEYS: "{{ lookup('file', './ssh/oci_id_rsa.pub') }}"
       - name: Launch an instance
         oci_compute_instance:
           availability_domain: "{{ instance_ad }}"
