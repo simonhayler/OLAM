@@ -70,7 +70,7 @@
       - name: Get details of the VNIC
         oci_network_vnic_facts:
           id: "{{ result.vnic_attachments[0].vnic_id }}"
-       register: result
+        register: result
       - set_fact:
         instance_public_ip: "{{result.vnic.public_ip}}"
 
