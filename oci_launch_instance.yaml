@@ -43,14 +43,14 @@
       - name: Launch an instance
         oci_compute_instance:
           availability_domain: "{{ instance_ad }}"
-          compartment_id: "{{ instance_compartment }}
-          name: "my_test_instance
-          image_id: "{{ instance_image }}
+          compartment_id: "{{ instance_compartment }}"
+          name: "my_OLAM_test_instance"
+          image_id: "{{ instance_image }}"
           shape: "{{ instance_shape }}"
         create_vnic_details:
           assign_public_ip: True
           hostname_label: "{{ instance_hostname }}"
-          subnet_id: "{{ instance_subnet_id }}
+          subnet_id: "{{ instance_subnet_id }}"
         metadata:
           ssh_authorized_keys: "{{ SSH_AUTHORIZED_KEYS }}"
         register: result
@@ -63,7 +63,7 @@
            
       - name: Get the VNIC attachment details of instance
           oci_compute_vnic_attachment_facts:
-            compartment_id: "{{ instance_compartment }}
+            compartment_id: "{{ instance_compartment }}"
             instance_id: "{{ instance_id }}"
         register: result
       
@@ -76,7 +76,7 @@
 
       - name: Print the public ip of the newly launched instance
         debug:
-          msg: "Public IP of launched instance {{ instance_public_ip }}
+          msg: "Public IP of launched instance {{ instance_public_ip }}"
  
       - name: Print how to access the instance
         debug:
