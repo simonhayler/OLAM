@@ -36,10 +36,10 @@
       instance_image: "ocid1.image.oc1.iad.aaaaaaaanxbmz7rm7tkopukbbahtcbcx45v5omusafwhjaenzf7tkcoq56qa"
     tasks:
       - name: Run setup.yaml to configure the OCI environment
-        block:
-          - import_tasks: setup.yaml
-          - set_fact:
-            SSH_AUTHORIZED_KEYS: "{{ lookup('file', './ssh/oci_id_rsa.pub') }}"
+      - block:
+        - import_tasks: setup.yaml
+        - set_fact:
+          SSH_AUTHORIZED_KEYS: "{{ lookup('file', './ssh/oci_id_rsa.pub') }}"
       - name: Launch an instance
         oci_compute_instance:
           availability_domain: "{{ instance_ad }}"
