@@ -5,7 +5,7 @@
 # Apache License v2.0
 # See LICENSE.TXT for details.
 
-- name: Launch a compute instance and connect to it using SSH
+- name: Launch a compute instance from OCI
   hosts: localhost
   collections:
     - oracle.oci
@@ -90,6 +90,8 @@
       - name: Print the public ip of the newly launched instance
         debug:
           msg: "Public IP of launched instance {{ instance_public_ip }}"
+      - name: Print how to access the instance
+        debug:
           msg: "SSH into instance {{ instance_public_ip }} using your private key which matches the public one referenced by the playbook"
-     rescue:
+    - rescue:
         - import_tasks: teardown.yaml
