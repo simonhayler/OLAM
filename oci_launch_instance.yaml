@@ -81,5 +81,5 @@
       - name: Print how to access the instance
         debug:
           msg: "SSH into instance {{ instance_public_ip }} using your private key which matches the public one referenced by the playbook"
-      rescue:
+      - rescue:
           - import_tasks: teardown.yaml
