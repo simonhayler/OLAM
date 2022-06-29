@@ -13,7 +13,8 @@
 #    - "SAMPLE_COMPARTMENT_OCID"
 #    - "SAMPLE_IMAGE_OCID"
 #    - "SAMPLE_AD_NAME"
--block: 
+
+- block:
   - name: Create a temporary directory to house a temporary SSH keypair we will later use to connect to instance
     tempfile:
       state: directory
@@ -34,16 +35,16 @@
       privatekey_path: "{{ temp_certificates_path }}/private_key.pem"
       format: OpenSSH
   when: "'SAMPLE_PUBLIC_SSH_KEY' not in ansible_env"
- 
- - name: Create a VCN
-   oci_network_vcn:
-     compartment_id: "{{ instance_compartment }}"
-     display_name: "{{ vcn_name }}"
-     cidr_block: "{{ vcn_cidr_block }}"
-     dns_label: "{{ vcn_dns_label }}"
-   register: result
- - set_fact:
-     vcn_id: "{{ result.vcn.id }}"
+
+- name: Create a VCN
+  oci_network_vcn:
+    compartment_id: "{{ instance_compartment }}"
+    display_name: "{{ vcn_name }}"
+    cidr_block: "{{ vcn_cidr_block }}"
+    dns_label: "{{ vcn_dns_label }}"
+  register: result
+- set_fact:
+    vcn_id: "{{ result.vcn.id }}"
 
 - name: Create a new Internet Gateway
   oci_network_internet_gateway:
