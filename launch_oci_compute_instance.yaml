@@ -11,7 +11,7 @@
 # DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 #
 
-- name: Launch a compute instance and connect to it using SSH
+- name: Launch a compute instance
   hosts: localhost
   collections:
     - oracle.oci
@@ -20,7 +20,6 @@
     quad_zero_route: "0.0.0.0/0"
     TCP_protocol: "6"
     SSH_port: "22"
-    path_to_ssh_key: "./ssh/oci_id_rsa.pub"
 
     vcn_name: "OLAM-vcn"
     vcn_cidr_block: "10.0.0.0/16"
@@ -178,27 +177,7 @@
 
         - name: Print the public ip of the newly launched instance
           debug:
-            msg: "Public IP of launched instance {{ instance_public_ip }}"
-            
-        - set_fact:
-          # Use "opc" user as this is an OL image
-          # Disable SSH's strict host key checking just for this one command invocation
-            ssh_command_with_key: ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i {{ path_to_ssh_key }} opc@{{ instance_public_ip }} uname -a
-        
-        - name: Pause for 3 minutes for the instance to become accessible
-          pause:
-            minutes: 3
-    
-        - name: Attempt a ssh connection to the newly launched instance
-          command: "{{ ssh_command_with_key  }}"
-          retries: 3
-          delay: 5
-          register: result
-          until: result.rc == 0
-
-        - name: Print SSH response from launched instance
-          debug:
-            msg: "SSH response from instance -> {{ result.stdout_lines }}"
+            msg: "Public IP of launched instance {{ instance_public_ip }}, connect as user opc with the uploaded public key"
             
       rescue:
         - name: Terminate the instance
