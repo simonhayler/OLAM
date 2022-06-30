@@ -87,4 +87,4 @@
       debug:
         msg: "SSH into instance {{ instance_public_ip }} using your private key which matches the public one referenced by the playbook"
 #   - rescue:
-#    - import_tasks: teardown.yaml
+#    - import_tasks: teardown.yaml 
