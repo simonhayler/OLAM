@@ -16,6 +16,8 @@
   collections:
     - oracle.oci
   vars:
+    # debug option to test rescue section to clean up
+    debug: "false"
     # common networking definitions
     quad_zero_route: "0.0.0.0/0"
     TCP_protocol: "6"
@@ -178,6 +180,11 @@
         - name: Print the public ip of the newly launched instance
           debug:
             msg: "Public IP of launched instance {{ instance_public_ip }}, connect as user opc with the uploaded public key"
+            
+        - name: Fail to test rescue section if debug set to true
+          fail:
+            msg: The system may not be provisioned according to the CMDB status.
+          when: debug = "true"
             
       rescue:
         - name: Terminate the instance
