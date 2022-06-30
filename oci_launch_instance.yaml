@@ -81,7 +81,7 @@
     - name: Print the public ip of the newly launched instance
       debug:
         msg: "Public IP of launched instance {{ instance_public_ip }}"
-        
+       
     - name: Print how to access the instance
       debug:
         msg: "SSH into instance {{ instance_public_ip }} \
