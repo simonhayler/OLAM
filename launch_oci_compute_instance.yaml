@@ -179,17 +179,10 @@
           debug:
             msg: "Public IP of launched instance {{ instance_public_ip }}"
             
-        # - name: Wait 300 seconds for port 22 to become open
-        #  wait_for:
-        #    port: 22
-        #    host: '{{ instance_public_ip }}'
-        #    delay: 10
-        #  connection: local
-            
         - set_fact:
           # Use "opc" user as this is an OL image
           # Disable SSH's strict host key checking just for this one command invocation
-            ssh_command_with_generated_key: ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i {{ ssh_authorized_keys }} opc@{{ instance_public_ip }} uname -a
+            ssh_command_with_generated_key: ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i {{ SSH_AUTHORIZED_KEYS }} opc@{{ instance_public_ip }} uname -a
         
         - name: Pause for 3 minutes for the instance to become accessible
           pause:
