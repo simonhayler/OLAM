@@ -16,8 +16,6 @@
   collections:
     - oracle.oci
   vars:
-    # debug option to test rescue section to clean up
-    test_rescue: false
     # common networking definitions
     quad_zero_route: "0.0.0.0/0"
     TCP_protocol: "6"
@@ -185,6 +183,11 @@
           fail:
             msg: The system may not be provisioned according to the CMDB status.
           when: test_rescue = true
+          
+        - name: Fail task when the command error output prints No such file or directory (for testing the rescue section)
+          command: /bin/rubbish
+          register: command_result
+          failed_when: "'No such file or directory' in command_result.stderr"
             
       rescue:
         - name: Terminate the instance
