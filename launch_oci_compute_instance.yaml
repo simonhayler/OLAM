@@ -25,7 +25,7 @@
     # route all internet access to our Internet Gateway
     route_table_rules:
       - cidr_block: "{{ quad_zero_route }}"
-      network_entity_id: "{{ ig_id }}"
+        network_entity_id: "{{ ig_id }}"
 
 
     subnet_cidr: "10.0.0.48/28"
