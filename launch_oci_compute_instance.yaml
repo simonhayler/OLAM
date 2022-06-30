@@ -193,7 +193,18 @@
           # Use "opc" user as this is an OL image
           # Disable SSH's strict host key checking just for this one command invocation
             ssh_command_with_generated_key: ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i {{ ssh_authorized_keys }} opc@{{ instance_public_ip }} uname -a
-          
+        
+        - name: Attempt a ssh connection to the newly launched instance
+          command: "{{ ssh_command_with_custom_key  }}"
+          retries: 3
+          delay: 5
+          register: result
+          until: result.rc == 0
+
+        - name: Print SSH response from launched instance
+          debug:
+            msg: "SSH response from instance -> {{ result.stdout_lines }}"
+            
       rescue:
 
         - import_tasks: teardown.yaml
