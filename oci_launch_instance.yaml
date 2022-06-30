@@ -43,7 +43,7 @@
     ocid1.image.oc1.iad.aaaaaaaanxbmz7rm7tkopukbbahtcbcx45v5omusafwhjaenzf7tkcoq56qa"
   tasks:
     - name: Run setup.yaml to configure the OCI environment
-    - block:
+      block:
         - import_tasks: setup.yaml
         - set_fact:
           SSH_AUTHORIZED_KEYS: "{{ lookup('file', './ssh/oci_id_rsa.pub') }}"
@@ -67,7 +67,6 @@
           msg: "Launched a new instance {{ result }}"
       - set_fact:
         instance_id: "{{result.instance.id }}"
-        
       - name: Get the VNIC attachment details of instance
         oci_compute_vnic_attachment_facts:
           compartment_id: "{{ instance_compartment }}"
