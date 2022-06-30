@@ -17,7 +17,7 @@
     - oracle.oci
   vars:
     # debug option to test rescue section to clean up
-    debug: "false"
+    test_rescue: false
     # common networking definitions
     quad_zero_route: "0.0.0.0/0"
     TCP_protocol: "6"
@@ -184,7 +184,7 @@
         - name: Fail to test rescue section if debug set to true
           fail:
             msg: The system may not be provisioned according to the CMDB status.
-          when: debug = "true"
+          when: test_rescue = true
             
       rescue:
         - name: Terminate the instance
