@@ -182,14 +182,14 @@
         - set_fact:
           # Use "opc" user as this is an OL image
           # Disable SSH's strict host key checking just for this one command invocation
-            ssh_command_with_generated_key: ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i {{ SSH_AUTHORIZED_KEYS }} opc@{{ instance_public_ip }} uname -a
+            ssh_command_with_key: ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i {{ SSH_AUTHORIZED_KEYS }} opc@{{ instance_public_ip }} uname -a
         
         - name: Pause for 3 minutes for the instance to become accessible
           pause:
             minutes: 3
     
         - name: Attempt a ssh connection to the newly launched instance
-          command: "{{ ssh_command_with_custom_key  }}"
+          command: "{{ ssh_command_with_key  }}"
           retries: 3
           delay: 5
           register: result
