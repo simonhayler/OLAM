@@ -1,9 +1,15 @@
 ---
-# Copyright (c) 2020, 2022 Oracle and/or its affiliates.
-# This software is made available to you under the terms of the GPL 3.0 license or the Apache 2.0 license.
-# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
-# Apache License v2.0
-# See LICENSE.TXT for details.
+#
+# Oracle Linux Automation Manager
+#
+# Copyright (c) 2022 Oracle and/or its affiliates.
+# Licensed under the Universal Permissive License v 1.0 as shown at
+# https://oss.oracle.com/licenses/upl.
+#
+# Description: Playbook to create an OL Instance within OCI
+#
+# DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+#
 
 - name: Launch a compute instance and connect to it using SSH
   hosts: localhost
@@ -15,13 +21,13 @@
     TCP_protocol: "6"
     SSH_port: "22"
 
-    vcn_name: "ansible-sample-launch-compute-instance-vcn"
+    vcn_name: "OLAM-vcn"
     vcn_cidr_block: "10.0.0.0/16"
-    vcn_dns_label: "samplelcs"
+    vcn_dns_label: "OLAMlcs"
 
-    ig_name: "myinternetgatewayformytestvcn"
+    ig_name: "OLAMinternetgateway"
 
-    route_table_name: "myroutetable"
+    route_table_name: "OLAMroutetable"
     # route all internet access to our Internet Gateway
     route_table_rules:
       - cidr_block: "{{ quad_zero_route }}"
@@ -29,13 +35,13 @@
 
 
     subnet_cidr: "10.0.0.48/28"
-    subnet_name: "mytestsubnet"
-    subnet_dns_label: "mytestsubnet"
+    subnet_name: "OLAMsubnet"
+    subnet_dns_label: "OLAMsubnet"
 
-    securitylist_name: "mysecuritylist"
+    securitylist_name: "OLAMsecuritylist"
 
     instance_shape: "{{ lookup('env', 'SAMPLE_INSTANCE_SHAPE') | default('VM.Standard2.1', true) }}"
-    instance_hostname: "mytestinstance"
+    instance_hostname: "OLAMinstance"
 
     #########################################
     # Tenancy specific configuration
@@ -172,6 +178,22 @@
         - name: Print the public ip of the newly launched instance
           debug:
             msg: "Public IP of launched instance {{ instance_public_ip }}"
+            
+        - name: Wait (upto 10 minutes) for port 22 to become open
+          wait_for:
+            port: 22
+            host: '{{ instance_public_ip }}'
+            state: started
+            delay: 10
+            timeout: 600
+          vars:
+            ansible_connection: local
+            
+        - set_fact:
+          # Use "opc" user as this is an OL image
+          # Disable SSH's strict host key checking just for this one command invocation
+            ssh_command_with_generated_key: ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i {{ ssh_authorized_keys }} opc@{{ instance_public_ip }} uname -a
+          
       rescue:
 
         - import_tasks: teardown.yaml
