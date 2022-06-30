@@ -33,7 +33,8 @@
       subnet_name: "OLAMtestsubnet"
       subnet_dns_label: "OLAMtestsubnet"
       securitylist_name: "OLAMsecuritylist"
-      instance_shape: "{{ lookup('env', 'SAMPLE_INSTANCE_SHAPE') | default('VM.Standard2.1', true) }}"
+      instance_shape: "{{ lookup('env', 'SAMPLE_INSTANCE_SHAPE')\
+      | default('VM.Standard2.1', true) }}"
       instance_hostname: "mytestinstance"
       instance_ad: "ergw:US-ASHBURN-AD-1"
       instance_compartment: "ocid1.compartment.oc1..aaaaaaaazxd6wrvcuicrgbi6cbaob4pyrr3i7i33xudheqhx6pbcesobdazq"
