@@ -24,7 +24,7 @@
     route_table_name: "myroutetable"
     # route all internet access to our Internet Gateway
     route_table_rules:
-      cidr_block: "{{ quad_zero_route }}"
+      - cidr_block: "{{ quad_zero_route }}"
       network_entity_id: "{{ ig_id }}"
 
 
