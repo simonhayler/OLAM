@@ -67,7 +67,7 @@
                 subnet_id: "{{ instance_subnet_id }}"
             metadata:
               ssh_authorized_keys: "{{ SSH_AUTHORIZED_KEYS }}"
-        register: result
+          register: result
 
         - name: Print instance details
           debug:
