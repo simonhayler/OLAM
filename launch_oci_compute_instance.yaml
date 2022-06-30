@@ -20,6 +20,7 @@
     quad_zero_route: "0.0.0.0/0"
     TCP_protocol: "6"
     SSH_port: "22"
+    path_to_ssh_key: "/var/lib/awx/projects/ssh/oci_id_rsa.pub"
 
     vcn_name: "OLAM-vcn"
     vcn_cidr_block: "10.0.0.0/16"
@@ -182,7 +183,7 @@
         - set_fact:
           # Use "opc" user as this is an OL image
           # Disable SSH's strict host key checking just for this one command invocation
-            ssh_command_with_key: ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i {{ SSH_AUTHORIZED_KEYS }} opc@{{ instance_public_ip }} uname -a
+            ssh_command_with_key: ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i {{ path_to_ssh_key }} opc@{{ instance_public_ip }} uname -a
         
         - name: Pause for 3 minutes for the instance to become accessible
           pause:
