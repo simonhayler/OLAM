@@ -39,7 +39,8 @@
       instance_ad: "ergw:US-ASHBURN-AD-1"
       instance_compartment: "\
       ocid1.compartment.oc1..aaaaaaaazxd6wrvcuicrgbi6cbaob4pyrr3i7i33xudheqhx6pbcesobdazq"
-    instance_image: "ocid1.image.oc1.iad.aaaaaaaanxbmz7rm7tkopukbbahtcbcx45v5omusafwhjaenzf7tkcoq56qa"
+    instance_image: "\
+    ocid1.image.oc1.iad.aaaaaaaanxbmz7rm7tkopukbbahtcbcx45v5omusafwhjaenzf7tkcoq56qa"
   tasks:
     - name: Run setup.yaml to configure the OCI environment
     - block:
@@ -54,7 +55,7 @@
           image_id: "{{ instance_image }}"
           shape: "{{ instance_shape }}"
         create_vnic_details:
-          assign_public_ip: True
+          assign_public_ip: true
           hostname_label: "{{ instance_hostname }}"
           subnet_id: "{{ instance_subnet_id }}"
         metadata:
