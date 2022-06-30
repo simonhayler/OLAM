@@ -65,7 +65,7 @@
                 assign_public_ip: true
                 hostname_label: "{{ instance_hostname }}"
                 subnet_id: "{{ instance_subnet_id }}"
-          metadata:
+            metadata:
               ssh_authorized_keys: "{{ SSH_AUTHORIZED_KEYS }}"
         register: result
 
