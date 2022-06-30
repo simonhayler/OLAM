@@ -24,8 +24,8 @@
     route_table_name: "myroutetable"
     # route all internet access to our Internet Gateway
     route_table_rules:
-      - cidr_block: "{{ quad_zero_route }}"
-          network_entity_id: "{{ ig_id }}"
+      cidr_block: "{{ quad_zero_route }}"
+      network_entity_id: "{{ ig_id }}"
 
 
     subnet_cidr: "10.0.0.48/28"
@@ -63,9 +63,9 @@
           image_id: "{{ instance_image }}"
           shape: "{{ instance_shape }}"
           create_vnic_details:
-              assign_public_ip: True
-              hostname_label: "{{ instance_hostname }}"
-              subnet_id: "{{ instance_subnet_id }}"
+            assign_public_ip: true
+            hostname_label: "{{ instance_hostname }}"
+            subnet_id: "{{ instance_subnet_id }}"
           metadata:
               ssh_authorized_keys: "{{ SSH_AUTHORIZED_KEYS }}"
         register: result
