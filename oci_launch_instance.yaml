@@ -43,7 +43,7 @@
     ocid1.image.oc1.iad.aaaaaaaanxbmz7rm7tkopukbbahtcbcx45v5omusafwhjaenzf7tkcoq56qa"
   tasks:
     - name: Run setup.yaml to configure the OCI environment
-#block:
+#   block:
     - import_tasks: setup.yaml
     - set_fact:
         SSH_AUTHORIZED_KEYS: "{{ lookup('file', './ssh/oci_id_rsa.pub') }}"
@@ -86,5 +86,5 @@
     - name: Print how to access the instance
       debug:
         msg: "SSH into instance {{ instance_public_ip }} using your private key which matches the public one referenced by the playbook"
-#- rescue:
+#   - rescue:
 #    - import_tasks: teardown.yaml
