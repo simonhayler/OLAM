@@ -179,15 +179,12 @@
           debug:
             msg: "Public IP of launched instance {{ instance_public_ip }}"
             
-        - name: Wait (upto 10 minutes) for port 22 to become open
+        - name: Wait 300 seconds for port 22 to become open
           wait_for:
             port: 22
             host: '{{ instance_public_ip }}'
-            state: started
             delay: 10
-            timeout: 600
-          vars:
-            ansible_connection: local
+          connection: local
             
         - set_fact:
           # Use "opc" user as this is an OL image
