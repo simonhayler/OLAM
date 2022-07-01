@@ -21,7 +21,9 @@
 # instance_compartment: ocid1.compartment.oc1..aaaaaaaazxd6wrvcuicrgbi6cbaob4pyrr3i7i33xudheqhx6pbcesobdazq
 # 
 # Also, two template files are needed which exist in the templates directory, these are to enable the ingress and egress configuration for the OCI security list
-# Within the lab OLAM server I placed these files in: /var/lib/awx/projects/templates with awx:awx permissions for both file and directory
+# Within the lab OLAM server I placed these files in: /var/lib/awx/projects/templates with awx:awx permissions for both file and directory.
+# These files are: egress_security_rules.yaml.j2 & ingress_security_rules.yaml.j2
+# An ssh directory is also needed with the public key which you should have the matching private one in order to connect to the instance as user opc
 
 - name: Launch a compute instance
   hosts: localhost
