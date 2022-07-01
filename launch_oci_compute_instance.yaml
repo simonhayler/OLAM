@@ -188,7 +188,7 @@
         - name: Fail task when the command error output prints No such file or directory (for testing the rescue section)
           fail:
             msg: "Resuce debug is enabled, we will fail to test the rescue steps"
-          when: destroy
+          when: rescue_test
             
       rescue:
         - name: Terminate the instance
