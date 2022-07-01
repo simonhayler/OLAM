@@ -16,7 +16,7 @@
   collections:
     - oracle.oci
   vars:
-    rescue_test: "1"
+    rescue_test: "0"
     # common networking definitions
     quad_zero_route: "0.0.0.0/0"
     TCP_protocol: "6"
