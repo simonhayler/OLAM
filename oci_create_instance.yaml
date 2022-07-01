@@ -10,6 +10,18 @@
 #
 # DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 #
+# This playbook uses the following additional variables which should be configured at run time for the template, these are examples values used
+# in the lab:
+# vnc_port: 1
+# rescue_test: false
+# instance_shape: VM.Standard2.1
+# instance_hostname: OLAMinstance
+# instance_image: ocid1.image.oc1.iad.aaaaaaaanxbmz7rm7tkopukbbahtcbcx45v5omusafwhjaenzf7tkcoq56qa
+# instance_ad: ergw:US-ASHBURN-AD-1
+# instance_compartment: ocid1.compartment.oc1..aaaaaaaazxd6wrvcuicrgbi6cbaob4pyrr3i7i33xudheqhx6pbcesobdazq
+# 
+# Also, two template files are needed which exist in the templates directory, these are to enable the ingress and egress configuration for the OCI security list
+# Within the lab OLAM server I placed these files in: /var/lib/awx/projects/templates with awx:awx permissions for both file and directory
 
 - name: Launch a compute instance
   hosts: localhost
