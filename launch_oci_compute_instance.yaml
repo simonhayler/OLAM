@@ -186,7 +186,7 @@
           when: test_rescue = true
           
         - name: Fail task when the command error output prints No such file or directory (for testing the rescue section)
-          failed_when: "{{ rescue_test }} == 1
+          failed_when: "{{ rescue_test }} == 1"
             
       rescue:
         - name: Terminate the instance
