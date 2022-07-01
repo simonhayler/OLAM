@@ -180,11 +180,6 @@
           debug:
             msg: "Public IP of launched instance {{ instance_public_ip }}, connect as user opc with the uploaded public key"
             
-        - name: Fail to test rescue section if debug set to true
-          fail:
-            msg: The system may not be provisioned according to the CMDB status.
-          when: test_rescue = true
-          
         - name: Fail task when the command error output prints No such file or directory (for testing the rescue section)
           fail:
             msg: "Resuce debug is enabled, we will fail to test the rescue steps"
