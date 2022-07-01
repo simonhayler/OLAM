@@ -180,7 +180,7 @@
           debug:
             msg: "Public IP of launched instance {{ instance_public_ip }}, connect as user opc with the uploaded public key"
             
-        - name: Fail task when the command error output prints No such file or directory (for testing the rescue section)
+        - name: Fail task when variable rescue_test is set to true (for testing the rescue section)
           fail:
             msg: "Resuce debug is enabled, we will fail to test the rescue steps"
           when: rescue_test
