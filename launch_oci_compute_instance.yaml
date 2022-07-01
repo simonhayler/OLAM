@@ -16,7 +16,7 @@
   collections:
     - oracle.oci
   vars:
-    rescue_test: "0"
+    rescue_test: true
     # common networking definitions
     quad_zero_route: "0.0.0.0/0"
     TCP_protocol: "6"
@@ -188,7 +188,7 @@
         - name: Fail task when the command error output prints No such file or directory (for testing the rescue section)
           fail:
             msg: "Resuce debug is enabled, we will fail to test the rescue steps"
-          when: "{{ rescue_test }} == 1"
+          when: destroy
             
       rescue:
         - name: Terminate the instance
