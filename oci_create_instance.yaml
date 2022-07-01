@@ -179,7 +179,7 @@
         - name: Fail task when variable rescue_test is set to true (for testing the rescue section)
           fail:
             msg: "Resuce debug is enabled, we will fail to test the rescue steps"
-          when: "{{ rescue_test }}"
+          when: "( rescue_test )"
             
       rescue:
         - name: Terminate the instance
