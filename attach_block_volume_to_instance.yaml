@@ -10,13 +10,7 @@
   collections:
     - oracle.oci
   vars:
-    
-
-    
-
     volume_name: "ansible-sample-attach-block-volume"
-
-   
 
   tasks:
     - name: Create a new block volume
