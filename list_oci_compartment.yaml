@@ -7,7 +7,6 @@
   tasks:
   - name: Get a specific compartment
     oci_identity_compartment_facts:
-      namespace_name: ovm
       compartment_id: ocid1.compartment.oc1..aaaaaaaazxd6wrvcuicrgbi6cbaob4pyrr3i7i33xudheqhx6pbcesobdazq
     register: output
   - name: Print compartment details
