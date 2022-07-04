@@ -31,6 +31,11 @@
       register: result
     - set_fact:
         volume_attachment_details: "{{ result.volume_attachment }}"
+        
+    - set_fact:
+    # Use "opc" user as this is an OL image
+    # Disable SSH's strict host key checking just for this one command invocation
+    common_ssh_args: '-o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i {{ temp_certificates_path }}/private_key.pem opc@{{ instance_public_ip }}'
 
     ########## Run iscsiadm commands in the compute instance to attach and connect to the block storage volme ##########
     - name: Register the volume in the instance with iscsiadm
