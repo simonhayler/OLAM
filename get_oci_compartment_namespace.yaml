@@ -9,7 +9,6 @@
 # Description: Playbook to list details for a compartment within OCI
 #
 # DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
-#
 
 - name: Get a specific compartment
   oci_identity_compartment_facts:
