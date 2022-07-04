@@ -1,5 +1,5 @@
 ---
-- name : List Compartment Details
+- name: List Compartment Details
   collections:
     - oracle.oci
   connection: local
