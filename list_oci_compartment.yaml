@@ -9,12 +9,18 @@
 # Description: Playbook to list details for a compartment within OCI
 #
 # DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+- name : List summary of existing buckets in OCI object storage
+  collections:
+    - oracle.oci
+  connection: local
+  hosts: localhost
+  tasks:
 
-- name: Get a specific compartment
-  oci_identity_compartment_facts:
-    # required
-    compartment_id: "ocid1.compartment.oc1..aaaaaaaazxd6wrvcuicrgbi6cbaob4pyrr3i7i33xudheqhx6pbcesobdazq"
-  register: output
-- name: Print compartment details
-  debug:
-    msg: "{{ output }}"
+    - name: Get a specific compartment
+      oci_identity_compartment_facts:
+      # required
+        compartment_id: "ocid1.compartment.oc1..aaaaaaaazxd6wrvcuicrgbi6cbaob4pyrr3i7i33xudheqhx6pbcesobdazq"
+      register: output
+    - name: Print compartment details
+      debug:
+        msg: "{{ output }}"
