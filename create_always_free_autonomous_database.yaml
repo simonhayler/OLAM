@@ -59,30 +59,7 @@
           assert:
              that:
                 - result.autonomous_databases[0].display_name == display_name
-
-    # Stop Autonomous Databases
-        - name: Stop an Autonomous Database
-          oci_database_autonomous_database_actions:
-             autonomous_database_id: "{{ autonomous_database_id }}"
-             action: 'stop'
-          register: result
-
-        - name: Assert that specified Autonomous Database is stopped
-          assert:
-             that:
-                - result.autonomous_database.lifecycle_state == 'STOPPED'
-
-    # Start Autonomous Databases
-        - name: Start Autonomous Database
-          oci_database_autonomous_database_actions:
-             autonomous_database_id: "{{ autonomous_database_id }}"
-             action: 'start'
-          register: result
-
-        - name: Assert that specified Autonomous Database is started and available
-          assert:
-             that:
-                - result.autonomous_database.lifecycle_state == 'AVAILABLE'
+                
 
     # Get a specific Autonomous Database
         - name: Get a specific Autonomous Database's facts
