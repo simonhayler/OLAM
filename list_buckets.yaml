@@ -23,7 +23,7 @@
     - name: List bucket facts
       oci_object_storage_bucket_facts:
          namespace_name: ovm
-         compartment_id: {{ instance_compartment }}
+         compartment_id: "{{ instance_compartment }}"
       register: result
     - name: Dump result
       debug: 
