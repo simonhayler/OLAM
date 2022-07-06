@@ -32,6 +32,7 @@
     vm_timezone: Europe/London
     vm_hostname: vm01.example.com
     vm_ip_address: 192.168.100.41
+    vm_name: SimonVM1
     
   tasks:
     - name: Login to OLVM manager
@@ -46,14 +47,14 @@
     - name: Create Virtual Machine
       ovirt_vm:
         auth: "{{ ovirt_auth }}"
-        cluster: "{{ olvm_cluster | default('Default') }}"
+        cluster: "{{ olvm_cluster }}"
         template: "{{ olvm_template }}"
-        name: "{{ item }}"
+        name: "{{ vm_name }}"
         state: running
         memory: "{{ vm_ram }}"
         high_availability: yes
         cloud_init:
-          host_name: "{{ hostvars[item]['ansible_host'] }}"
+          host_name: "{{ vm_hostname }}"
           user_name: root
           root_password: "{{ vm_root_passwd }}"
           dns_servers: "{{ vm_dns }}"
