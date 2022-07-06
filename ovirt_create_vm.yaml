@@ -11,35 +11,27 @@
 # DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 #
 
-olvm_fqdn: ovirt.it.oracle.com
-olvm_user: shayler@internal
-olvm_cafile: /etc/pki/ovirt-engine/ca.pem
-
-# Variables applicable to all vms
-# 
-# OLVM VM create details
-#
-olvm_cluster: cluster03
-olvm_template: OL8U6_x86_64-olvm-b126_NODE03
-vm_ram: 512MiB
- 
-# Cloud init variables
-#
-vm_dns: 192.168.100.2
-vm_dns_domain: example.com
-vm_gateway: 192.168.100.1
-vm_netmask: 255.255.255.0
-vm_timezone: Europe/London
-vm_hostname: vm01.example.com
-vm_ip_address: 192.168.100.41
-
----
 - hosts: all
   become: yes
   #become_method: sudo
   #gather_facts: no
   vars_files:
     - /var/lib/awx/projects/files/ovirt_passwords.yaml
+  
+  vars:
+    olvm_fqdn: ovirt.it.oracle.com
+    olvm_user: shayler@internal
+    olvm_cafile: /etc/pki/ovirt-engine/ca.pem
+    olvm_cluster: cluster03
+    olvm_template: OL8U6_x86_64-olvm-b126_NODE03
+    vm_ram: 512MiB
+    vm_dns: 192.168.100.2
+    vm_dns_domain: example.com
+    vm_gateway: 192.168.100.1
+    vm_netmask: 255.255.255.0
+    vm_timezone: Europe/London
+    vm_hostname: vm01.example.com
+    vm_ip_address: 192.168.100.41
     
   tasks:
     - name: Login to OLVM manager
