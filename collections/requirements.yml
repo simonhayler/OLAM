@@ -1,3 +1,4 @@
 ---
 collections:
   - name: oracle.oci
+  - name: ovirt.ovirt
