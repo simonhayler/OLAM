@@ -53,6 +53,8 @@
         state: running
         memory: "{{ vm_ram }}"
         high_availability: yes
+        graphical_console:
+          monitors: 1 
         cloud_init:
           host_name: "{{ vm_hostname }}"
           user_name: root
